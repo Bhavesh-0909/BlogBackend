@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
+require('dotenv').config()
 
 const DatabaseUrl = process.env.DATABASE_URL;
 
 const Database = async() =>{
-    mongoose.connect(DatabaseUrl)
+    await mongoose.connect(DatabaseUrl)
     .then(()=> console.log("DB connected"))
     .catch((err)=>{
-        console.log(err)
         console.error(err)
     })
 }

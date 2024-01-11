@@ -4,17 +4,23 @@ const postSchema = new mongoose.Schema({
     post:{
         type:String,
         maxLength:50,
-        require:true,
+        required:true,
     },
     comment:{
         type:String,
-        require:false,
+        required:false,
         maxLength:30,
     },
     like:{
         type:Boolean,
-        require:false,
+        required:false,
+        default:false
+    },
+    createdPost:{
+        type:Date,
+        required:true,
+        default:Date.now()
     }
 })
 
-module.exports = mongoose.Schema(postSchema);
+module.exports = mongoose.model("Blogs", postSchema);
