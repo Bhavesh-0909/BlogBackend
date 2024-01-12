@@ -8,11 +8,13 @@ exports.like = async(req, res) => {
             post, user
         })
         const saveLike = await likeObject.save();
+
         const addLikeToPost = await Post.findByIdAndUpdate({_id:post},
-            {$push:saveLike._id}, {new:true})
-        res.status(500)
+            {$push:{like:saveLike._id}}, {new:true}).populate('like')
+
+        res.status(200)
         .json({
-            success:false,
+            success:true,
             data:addLikeToPost
         })
     }
@@ -21,6 +23,29 @@ exports.like = async(req, res) => {
         .json({
             success:false,
             data:error.message
+        })
+    }
+}
+
+exports.dislike = async(req, res) => {
+    try{
+        const {post, like} = req.body;
+        const removeLikeFromLikes = await Like.findOneAndDelete({_id:like});
+
+        const removeFromPost = await Post.findByIdAndUpdate({_id:post},
+            {$pull:{like:like}}, {new:true}).exec()
+            
+        res.status(200)
+        .json({
+        success:true,
+        data:removeFromPost
+        })
+    }
+    catch(err){
+        res.status(500)
+        .json({
+            success:false,
+            data:err.message
         })
     }
 }

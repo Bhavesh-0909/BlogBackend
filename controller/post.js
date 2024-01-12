@@ -7,6 +7,7 @@ exports.createPost = async(req, res)=>{
             title, body
         })
         const newPost = await getPost.save();
+        
         res.status(200)
         .json({
             success:true,
