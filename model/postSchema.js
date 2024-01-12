@@ -1,26 +1,22 @@
 const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema({
-    post:{
+    title:{
         type:String,
-        maxLength:50,
         required:true,
     },
-    comment:{
+    body:{
         type:String,
-        required:false,
-        maxLength:30,
-    },
-    like:{
-        type:Boolean,
-        required:false,
-        default:false
-    },
-    createdPost:{
-        type:Date,
         required:true,
-        default:Date.now()
-    }
-})
+    },
+    like:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Like"
+    }],
+    comment:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Comment"
+    }]
+}, {timestamps:true})
 
-module.exports = mongoose.model("Blogs", postSchema);
+module.exports = mongoose.model("Post", postSchema);

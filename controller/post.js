@@ -2,9 +2,11 @@ const Post = require('../model/postSchema');
 
 exports.createPost = async(req, res)=>{
     try{
-        const {post} = req.body;
-
-        const newPost = await Post.create({post})
+        const {title, body} = req.body;
+        const getPost = new Post({
+            title, body
+        })
+        const newPost = await getPost.save();
         res.status(200)
         .json({
             success:true,
@@ -16,7 +18,7 @@ exports.createPost = async(req, res)=>{
         res.status(500)
         .json({
             success:false,
-            data:"server error",
+            data:"server error in creatin post",
         })
     }
 }
