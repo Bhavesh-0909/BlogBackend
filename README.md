@@ -17,6 +17,6 @@ This repository contains the code for a simple blog backend built using Node.js 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/blog-backend.git
+   git clone https://github.com/Bhavesh-0909/BlogBackend.git
 
 
